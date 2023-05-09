@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css"
+      integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
+      crossorigin="anonymous"
+    />
+    <!-- Link Swiper's CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper@8/swiper-bundle.css"
+    />
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.js"></script>
+
+    <!-- 引入 jQuery.js -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+
+    <!-- 引入 echarts.js -->
+       
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+       
+    <script src="https://www.makeapie.cn/dep/echarts/map/js/china.js"></script>
+  </head>
+  <style>
+    body,
+    html {
+      width: 100%;
+      height: 100%;
+    }
+    #box {
+      padding-top: 20px;
+      margin: 0 auto;
+      width: 60%;
+      height: 100%;
+    }
+    a {
+      list-style: none;
+    }
+    /* 头部 */
+    #box-top {
+      height: 60px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .box-top-2 a {
+      color: black;
+      font-size: 17px;
+    }
+    .box-top-3 {
+      margin-top: 5px;
+    }
+
+    /* 第二个板块-轮播 */
+
+    .swiper {
+      width: 100%;
+    }
+
+    .swiper-slide {
+      background-position: center;
+      background-size: cover;
+      width: 300px;
+      height: 400px;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    #box-middle-1-moreTitle {
+      position: absolute;
+      right: 400px;
+      top: 400px;
+      z-index: 99;
+      cursor: pointer;
+    }
+    /* 第三个板块-各种业务 */
+    #box-middle-2 {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 40px;
+      margin-bottom: 40px;
+    }
+    #box-middle-2 img {
+      width: 40px;
+      height: 40px;
+    }
+    #box-middle-2 a {
+      color: black;
+      font-size: 17px;
+    }
+    /* 第四个板块-新闻轮播 */
+    #box-middle-3 {
+      display: flex;
+      justify-content: flex-start;
+    }
+    .mySwiper2 {
+      margin: 0;
+      width: 480px;
+      height: 370px;
+    }
+    .mySwiper2 img {
+      height: 320px;
+    }
+    .mySwiper2 p {
+      font-size: 15px;
+    }
+    .mySwiper2 .swiper-pagination-bullet {
+      width: 10px;
+      height: 5px;
+      border-radius: 5px;
+    }
+    .swiper-pagination-bullet-active {
+      background-color: green;
+    }
+    .mySwiper2 .swiper-pagination {
+      margin-left: 180px;
+    }
+    .box-middle-3-title {
+      margin-left: 20px;
+    }
+    .box-middle-3-title a {
+      color: black;
+      font-size: 20px;
+      font-weight: bolder;
+    }
+    .box-middle-3-title-middle {
+      width: 660px;
+    }
+    .box-middle-3-title-middle li {
+      padding-top: 10px;
+      font-size: 16px;
+    }
+    /* 第四个板块-邮政视频 */
+    #box-middle-4 {
+      display: flex;
+      justify-content: flex-start;
+    }
+    .box-middle-4-top,
+    .box-middle-4-right-top {
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ccc;
+    }
+    .box-middle-4-top {
+      margin-top: 20px;
+    }
+    .box-middle-4-right {
+      width: 660px;
+      margin-left: 20px;
+    }
+    .box-middle-4-right a {
+      font-size: 20px;
+      color: black;
+      font-weight: bolder;
+    }
+    .box-middle-4-right-bottom li {
+      font-size: 18px;
+    }
+    .box-middle-4-bottom li {
+      padding-top: 10px;
+      font-size: 16px;
+    }
+    /* 第五个板块-邮政网点 */
+    #box-middle-5 {
+      display: flex;
+      justify-content: flex-start;
+    }
+    .box-middle-5-left {
+      width: 700px;
+      margin-right: 85px;
+    }
+    .box-middle-5-right {
+      width: 356px;
+    }
+    .box-middle-5-top,
+    .box-middle-5-right-top {
+      border-bottom: 1px solid #ccc;
+    }
+    .box-middle-5-right-bottom p {
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    .box-middle-5-right-bottom span {
+      color: green;
+      font-weight: bold;
+      margin-left: 20px;
+    }
+    .box-middle-5-right-bottom-1-top {
+      margin-top: 30px;
+      border-bottom: 1px solid #ccc;
+    }
+    /* 增加类 */
+    .disB {
+      display: block;
+    }
+    .disN {
+      display: none;
+    }
+  </style>
+  <body>
+    <div id="box">
+      <div id="box-top">
+        <div class="box-top-1">
+          <img
+            style="width: 129px; height: 42px"
+            src="http://www.chinapost.com.cn/res/ChinaPostJT/structure/200568120.png"
+          />
+        </div>
+        <div class="box-top-2">
+          <ul class="nav nav-pills">
+            <li role="presentation"><a href="javascript:void(0)">首页</a></li>
+            <li role="presentation">
+              <a href="javascript:void(0)">关于我们</a>
+            </li>
+            <li role="presentation">
+              <a href="javascript:void(0)">新闻中心</a>
+            </li>
+            <li role="presentation">
+              <a href="javascript:void(0)">党建时空</a>
+            </li>
+            <li role="presentation">
+              <a href="javascript:void(0)">产品服务</a>
+            </li>
+            <li role="presentation">
+              <a href="javascript:void(0)">社会责任</a>
+            </li>
+            <li role="presentation">
+              <a href="javascript:void(0)">企业文化</a>
+            </li>
+          </ul>
+        </div>
+        <div class="box-top-3">
+          <input
+            type="text"
+            placeholder=" 请输入搜索关键字"
+            style="border: 1px solid #ccc; height: 30px"
+          />
+          <button
+            style="
+              background-color: green;
+              width: 60px;
+              height: 30px;
+              border-radius: 5px;
+              border: 0;
+              color: white;
+            "
+          >
+            搜索
+          </button>
+        </div>
+      </div>
+      <div id="box-1">
+        <!-- 轮播 -->
+        <div id="box-middle-1">
+          <!-- Swiper -->
+          <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img
+                  src="http://www.chinapost.com.cn/res/ChinaPostJT/page/23032127.jpg"
+                  alt=""
+                />
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="http://www.chinapost.com.cn/res/ChinaPostJT/page/23049817.jpg"
+                  alt=""
+                />
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="http://www.chinapost.com.cn/res/ChinaPostJT/page/22111563.jpg"
+                  alt=""
+                />
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="http://www.chinapost.com.cn/res/ChinaPostJT/page/22062839.png"
+                  alt=""
+                />
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="http://www.chinapost.com.cn/res/ChinaPostJT/page/220574014.jpg"
+                  alt=""
+                />
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="http://www.chinapost.com.cn/res/ChinaPostJT/page/2012680921.jpg"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+          <!-- 更多专题 -->
+          <div id="box-middle-1-moreTitle">
+            <img
+              src="http://www.chinapost.com.cn/res/ChinaPostJT/structure/1813129465.png"
+              alt=""
+            />
+          </div>
+        </div>
+        <!-- 各种业务 -->
+        <div id="box-middle-2">
+          <div>
+            <img
+              src="http://www.chinapost.com.cn/res/ChinaPostJT/structure/2012677353.png"
+              alt=""
+            />
+            <a href="javascript:void(0)">邮务业务</a>
+          </div>
+          <div>
+            <img
+              src="	http://www.chinapost.com.cn/res/ChinaPostJT/structure/2012677354.png"
+              alt=""
+            />
+            <a href="javascript:void(0)">快递业务</a>
+          </div>
+          <div>
+            <img
+              src="http://www.chinapost.com.cn/res/ChinaPostJT/structure/2012677355.png"
+              alt=""
+            />
+            <a href="javascript:void(0)">银行业务</a>
+          </div>
+          <div>
+            <img
+              src="	http://www.chinapost.com.cn/res/ChinaPostJT/structure/2012677356.png"
+              alt=""
+            />
+            <a href="javascript:void(0)">保险业务</a>
+          </div>
+          <div>
+            <img
+              src="http://www.chinapost.com.cn/res/ChinaPostJT/structure/2012677357.png"
+              alt=""
+            />
+            <a href="javascript:void(0)">证券业务</a>
+          </div>
+          <div>
+            <img
+              src="	http://www.chinapost.com.cn/res/ChinaPostJT/structure/2012677358.png"
+              alt=""
+            />
+            <a href="javascript:void(0)">网上商城</a>
+          </div>
+        </div>
+        <!-- 新闻板块 -->
+        <div id="box-middle-3">
+          <!-- Swiper -->
+          <div class="swiper mySwiper2">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img
+                  src="http://www.chinapostnews.com.cn/newspaper/epaper/res/1/20230506/93511683344867317.jpg#auto"
+                  alt=""
+                />
+                <p>弘扬五四精神 绽放青春风采</p>
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="http://www.chinapostnews.com.cn/newspaper/epaper/res/1/20230505/12131683265292583.jpg#auto"
+                  alt=""
+                />
+                <p>技能大闯关 青年争先锋</p>
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="http://www.chinapostnews.com.cn/newspaper/epaper/res/1/20230429/30881682711152247.jpg#auto"
+                  alt=""
+                />
+                <p>青春心向党 青年颂华章</p>
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="http://www.chinapostnews.com.cn/newspaper/epaper/res/1/20230428/29891682656289544.jpg#auto"
+                  alt=""
+                />
+                <p>绣出乡村振兴新画卷</p>
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="http://www.chinapostnews.com.cn/newspaper/epaper/res/1/20230426/16491682485771029.jpg#auto"
+                  alt=""
+                />
+                <p>"少年邮局" 打造 "德育+" 特色教育</p>
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="http://www.chinapostnews.com.cn/newspaper/epaper/res/1/20230425/41221682394662794.jpg#auto"
+                  alt=""
+                />
+                <p>全民阅读迎亚运</p>
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+          <div class="box-middle-3-title">
+            <ul class="nav nav-pills">
+              <li role="presentation">
+                <a href="javascript:void(0)">集团要闻</a>
+              </li>
+              <li role="presentation">
+                <a href="javascript:void(0)">综合新闻</a>
+              </li>
+              <li role="presentation">
+                <a href="javascript:void(0)">媒体聚焦</a>
+              </li>
+              <li role="presentation">
+                <a href="javascript:void(0)">一线风采</a>
+              </li>
+            </ul>
+            <div class="box-middle-3-title-middle">
+              <ul>
+                <li
+                  style="
+                    font-size: 20px;
+                    font-weight: bold;
+                    border-bottom: 1px solid #ccc;
+                  "
+                >
+                  2023第19届中华全国集邮展览开幕
+                  <p style="color: #ccc; font-size: 14px">
+                    珍邮耀春城,集藏品天下
+                  </p>
+                </li>
+                <li>邮储银行党委举办主题教育读书班</li>
+                <li>中邮保险价值转型成效显著</li>
+                <li>邮储银行一季度经营发展稳健开局 "五大差异化增长极" 建设</li>
+                <li>中国邮政助力法院审判执行质效提高实现双赢多赢共赢</li>
+                <li>集团公司表彰2022年劳动竞赛先进集体和个人</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- 邮政视频 -->
+        <div id="box-middle-4">
+          <div class="box-middle-4-left">
+            <div class="box-middle-4-top">
+              <div
+                style="
+                  background-color: green;
+                  width: 7px;
+                  height: 20px;
+                  border-radius: 10px;
+                  display: inline-block;
+                "
+              ></div>
+              <b style="font-size: 20px">邮政视频</b>
+            </div>
+            <div
+              class="box-middle-4-middle"
+              style="width: 480px; height: 220px"
+            >
+              <video
+                src="http://v.ctvpost.com/res/ChinaPostVideo/video/23041/2020_2.mp4"
+                controls
+                autoplay="autoplay"
+                style="width: 470px; height: 220px; object-fit: fill"
+              ></video>
+            </div>
+            <div class="box-middle-4-bottom">
+              <ul style="padding-left: 20px">
+                <li>强邮争先锋 建功新时代</li>
+                <li>了不起的中国,不一样的邮政</li>
+              </ul>
+            </div>
+          </div>
+          <div class="box-middle-4-right">
+            <ul class="nav nav-pills box-middle-4-right-top">
+              <li role="presentation">
+                <a href="javascript:void(0)">信息广告</a>
+              </li>
+              <li role="presentation">
+                <a href="javascript:void(0)">邮资票品发行信息</a>
+              </li>
+              <li role="presentation">
+                <a href="javascript:void(0)">采购公告公示</a>
+              </li>
+              <li role="presentation">
+                <a href="javascript:void(0)">预决算公开</a>
+              </li>
+            </ul>
+            <div class="box-middle-4-right-bottom">
+              <ul>
+                <li>中国邮政集团有限公粉丝</li>
+                <li>中国邮政集团有限公粉丝</li>
+                <li>中国邮政集团有限公粉丝</li>
+                <li>中国邮政集团有限公粉丝</li>
+                <li>中国邮政集团有限公粉丝</li>
+                <li>中国邮政集团有限公粉丝</li>
+                <li>中国邮政集团有限公粉丝</li>
+                <li>中国邮政集团有限公粉丝</li>
+                <li>中国邮政集团有限公粉丝</li>
+                <li>中国邮政集团有限公粉丝</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- 邮政网点 -->
+        <div id="box-middle-5">
+          <div class="box-middle-5-left">
+            <div class="box-middle-5-top">
+              <div
+                style="
+                  background-color: green;
+                  width: 7px;
+                  height: 20px;
+                  border-radius: 10px;
+                  display: inline-block;
+                "
+              ></div>
+              <b style="font-size: 20px">邮政网点</b>
+            </div>
+            <div
+              id="box-middle-5-top-middle"
+              style="width: 700px; height: 577px"
+            ></div>
+          </div>
+          <div class="box-middle-5-right">
+            <div class="box-middle-5-right-top">
+              <div
+                style="
+                  background-color: green;
+                  width: 7px;
+                  height: 20px;
+                  border-radius: 10px;
+                  display: inline-block;
+                "
+              ></div>
+              <b style="font-size: 20px">客服热线</b>
+            </div>
+            <div class="box-middle-5-right-bottom">
+              <p>邮政业务 <span> 11185</span></p>
+              <p>邮政银行 <span> 95580</span></p>
+              <p>速递物流 <span> 11183</span></p>
+              <p>中邮保险 <span> 4008909999</span></p>
+              <p>中邮证券 <span> 4008888005</span></p>
+              <div
+                style="
+                  width: 100%;
+                  height: 50px;
+                  background-color: green;
+                  color: white;
+                  text-align: center;
+                  padding-top: 15px;
+                  border-radius: 5px;
+                "
+              >
+                举报专区
+              </div>
+            </div>
+            <div class="box-middle-5-right-bottom-1">
+              <div class="box-middle-5-right-bottom-1-top">
+                <div
+                  style="
+                    background-color: green;
+                    width: 7px;
+                    height: 20px;
+                    border-radius: 10px;
+                    display: inline-block;
+                  "
+                ></div>
+                <b style="font-size: 20px">邮政新媒体</b>
+              </div>
+              <div>
+                <img src="./邮政.png" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="text-align: center">
+          <p>商标</p>
+        </div>
+      </div>
+      <div id="box-2">我是第二个页面</div>
+    </div>
+    <!-- Initialize Swiper -->
+    <script>
+     
+      //轮播图
+      var swiper = new Swiper(".mySwiper", {
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        autoplay: true,
+        speed: 3000,
+        loop: true,
+      });
+      var swiper2 = new Swiper(".mySwiper2", {
+        spaceBetween: 30,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        speed: 1500,
+        effect: "fade",
+        fadeEffect: {
+          crossFade: true,
+        },
+      });
+      //中国地图
+      var arr = echarts.init(
+        document.getElementById("box-middle-5-top-middle")
+      );
+      window.dataList = [
+        {
+          name: "南海诸岛",
+          value: 0,
+        },
+        {
+          name: "北京",
+          value: 54,
+        },
+        {
+          name: "天津",
+          value: 13,
+        },
+        {
+          name: "上海",
+          value: 40,
+        },
+        {
+          name: "重庆",
+          value: 75,
+        },
+        {
+          name: "河北",
+          value: 13,
+        },
+        {
+          name: "河南",
+          value: 83,
+        },
+        {
+          name: "云南",
+          value: 11,
+        },
+        {
+          name: "辽宁",
+          value: 19,
+        },
+        {
+          name: "黑龙江",
+          value: 15,
+        },
+        {
+          name: "湖南",
+          value: 69,
+        },
+        {
+          name: "安徽",
+          value: 60,
+        },
+        {
+          name: "山东",
+          value: 39,
+        },
+        {
+          name: "新疆",
+          value: 4,
+        },
+        {
+          name: "江苏",
+          value: 31,
+        },
+        {
+          name: "浙江",
+          value: 104,
+        },
+        {
+          name: "江西",
+          value: 36,
+        },
+        {
+          name: "湖北",
+          value: 1052,
+        },
+        {
+          name: "广西",
+          value: 33,
+        },
+        {
+          name: "甘肃",
+          value: 7,
+        },
+        {
+          name: "山西",
+          value: 9,
+        },
+        {
+          name: "内蒙古",
+          value: 7,
+        },
+        {
+          name: "陕西",
+          value: 22,
+        },
+        {
+          name: "吉林",
+          value: 4,
+        },
+        {
+          name: "福建",
+          value: 18,
+        },
+        {
+          name: "贵州",
+          value: 5,
+        },
+        {
+          name: "广东",
+          value: 98,
+        },
+        {
+          name: "青海",
+          value: 1,
+        },
+        {
+          name: "西藏",
+          value: 0,
+        },
+        {
+          name: "四川",
+          value: 44,
+        },
+        {
+          name: "宁夏",
+          value: 4,
+        },
+        {
+          name: "海南",
+          value: 22,
+        },
+        {
+          name: "台湾",
+          value: 3,
+        },
+        {
+          name: "香港",
+          value: 5,
+        },
+        {
+          name: "澳门",
+          value: 5,
+        },
+      ];
+      option = {
+        visualMap: {
+          color: ["#82b87a"],
+          show: false,
+        },
+        geo: {
+          map: "china",
+          roam: !1,
+          scaleLimit: {
+            min: 1,
+            max: 2,
+          },
+          zoom: 1.23,
+          label: {
+            normal: {
+              show: !0,
+              fontSize: "14",
+            },
+          },
+          itemStyle: {
+            emphasis: {
+              areaColor: "yellow",
+              shadowOffsetX: 0,
+              shadowOffsetY: 0,
+              borderWidth: 0,
+            },
+          },
+        },
+        series: [
+          {
+            name: "ms",
+            type: "map",
+            geoIndex: 0,
+            data: window.dataList,
+          },
+        ],
+      };
+      arr.setOption(option);
+       //tag标签切换
+       $(".box-top-2 li").on("click", function () {
+        if ($(this).children().html() == "首页") {
+          $("#box-1").removeClass("disN");
+          $("#box-1").addClass("disB");
+          swiper.slideTo(1,0)
+          swiper.autoplay.start();
+        } else {
+          $("#box-1").addClass("disN");
+          $("#box-2").addClass("disB");
+        }
+      });
+    </script>
+  </body>
+</html>
